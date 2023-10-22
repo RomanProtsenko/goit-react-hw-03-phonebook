@@ -25,16 +25,15 @@ export class App extends Component {
   }
 
   addContact = (name, number) => {
+    
+  if (this.findContact(name)) {
+    return alert(`${name} is already in contacts`);
+  }
   const newContact = {
     id: nanoid(),
     name,
     number,
   };
-  
-  if (this.findContact(name)) {
-    return alert(`${name} is already in contacts`);
-  }
-  
   this.setState((prevState) => ({
     contacts: [...prevState.contacts, newContact],
   }));
@@ -46,20 +45,7 @@ export class App extends Component {
      this.setState({ [name]: value });
   };
 
-  handleSubmit = (e)  => {
-    e.preventDefault();
-    const { name, number } = this.state;
-    const newContact = {
-            name:name,
-            id: nanoid(),
-            number:number,
-        }
-    this.setState((prev) => ({
-      contacts: [newContact, ...prev.contacts],
-      name: '',
-      number: ''
-		}))
-  }
+
  
   filterChange = (e) => {
   this.setState({ filter: e.target.value });
